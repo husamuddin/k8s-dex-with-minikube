@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+
+minikube start \
+  --mount \
+  --mount-string $PWD/certs:/etc/ssl/certs/oidc \
+  --extra-config=apiserver.oidc-issuer-url=https://minikube/dex \
+  --extra-config=apiserver.oidc-username-claim=sub \
+  --extra-config=apiserver.oidc-client-id=kubelogin \
+  --extra-config=apiserver.oidc-ca-file=/etc/ssl/certs/oidc/ca.crt

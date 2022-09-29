@@ -1,0 +1,44 @@
+#!/usr/bin/sh
+
+# get common name for the certificate authority
+read -p "Enter CA Common name: " ca_cn
+cert_dir=certs
+
+# validate the ca common name
+if [ -z "${ca_cn}" ]; then
+  echo "Error: CA common name can't be empty."
+  exit 1
+fi
+
+generate_certificate_authority_key_pair () {
+  openssl genrsa -out $cert_dir/ca.key 4096
+  openssl req -new -x509 -sha256 -days 365 -key $cert_dir/ca.key -out $cert_dir/ca.crt -subj "/CN=$1"
+}
+
+generate_server_key_pair () {
+  openssl genrsa -out $cert_dir/server.key 4096
+  openssl req -new -sha256 -subj "/CN=$1" -key $cert_dir/server.key -out $cert_dir/server.csr
+  openssl x509 \
+    -req \
+    -sha256 \
+    -days 365 \
+    -in $cert_dir/server.csr \
+    -CA $cert_dir/ca.crt \
+    -CAkey $cert_dir/ca.key \
+    -out $cert_dir/server.crt \
+    -extfile $extfile \
+    -CAcreateserial
+}
+
+mkdir -p $cert_dir
+
+extfile=$(mktemp)
+echo "subjectAltName=DNS.1:minikube" > $extfile
+
+echo "Create certificate authority key pair..."
+generate_certificate_authority_key_pair $ca_cn > /dev/null 2>&1
+
+echo "Create server key pair..."
+generate_server_key_pair $ca_cn > /dev/null 2>&1
+
+echo "done"

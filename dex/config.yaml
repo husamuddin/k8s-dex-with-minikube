@@ -1,0 +1,26 @@
+enablePasswordDB: true
+issuer: https://minikube/dex
+storage:
+  type: memory
+
+connectors:
+- type: github
+  # Required field for connector id.
+  id: github
+  # Required field for connector name.
+  name: GitHub
+  config:
+    # Credentials can be string literals or pulled from the environment.
+    clientID: <github app client id>
+    clientSecret: <github app client secret>
+    redirectURI: https://minikube/dex/callback
+
+staticClients:
+- id: kubelogin
+  secret: kubelogin_password
+  name: kubelogin
+
+  # Where the app will be running.
+  redirectURIs:
+  - http://localhost:8000
+
