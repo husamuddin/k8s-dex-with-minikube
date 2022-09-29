@@ -1,6 +1,6 @@
-# DexIdP with minikub example
+# DexIdP with minikube
 
-## Setup guide
+## Getting Started
 
 ### 1. Install Dex using helm
 ```
