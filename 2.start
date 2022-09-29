@@ -7,3 +7,5 @@ minikube start \
   --extra-config=apiserver.oidc-username-claim=sub \
   --extra-config=apiserver.oidc-client-id=kubelogin \
   --extra-config=apiserver.oidc-ca-file=/etc/ssl/certs/oidc/ca.crt
+
+minikube addons enable ingress
