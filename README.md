@@ -1,4 +1,6 @@
 # DexIdP with minikube
+The following are the instructions to run minikube locally and to integrate Dex with it.
+
 
 ## Getting Started
 
