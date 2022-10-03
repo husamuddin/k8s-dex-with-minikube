@@ -29,7 +29,7 @@ kubectl -n dex create ingress dex --rule="/dex*=dex:5556,tls=minikube-ingress-tl
 kubectl create secret generic dex \
   --from-file dex/config.yaml \
   --save-config \
-  --dry-run -o yaml | \
+  --dry-run=client -o yaml | \
   kubectl apply -f -
 ```
 
