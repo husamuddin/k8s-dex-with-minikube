@@ -8,7 +8,7 @@ The following are the instructions to run minikube locally and to integrate Dex 
 ```
 helm repo add dex https://charts.dexidp.io
 kubectl create ns dex
-helm install --generate-name --wait dex/dex -values ./dex/Values.yaml -n dex
+helm install --generate-name --wait dex/dex --values ./dex/Values.yaml -n dex
 ```
 
 ### 2. Configure the dex ingress
