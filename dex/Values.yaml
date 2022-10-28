@@ -18,7 +18,7 @@ config:
 
   staticClients:
   - id: kubelogin
-    secret: ouTiux65Ayb+CzeV
+    secret: <application secret>
     name: kubelogin
 
     # Where the app will be running.
